@@ -35,21 +35,21 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Success Discord hook
-        if: success()
+        if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           webhookUrl: ${{secrets.DISCORD_WEBHOOK_URL}}
           severity: info
           details: Deployment successful!
       - name: Failure Discord hook
-        if: failure()
+        if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           webhookUrl: ${{secrets.DISCORD_WEBHOOK_URL}}
           severity: error
           details: Deployment failed!
       - name: Cancelled Discord hook
-        if: cancelled()
+        if: ${{ cancelled() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           webhookUrl: ${{secrets.DISCORD_WEBHOOK_URL}}
