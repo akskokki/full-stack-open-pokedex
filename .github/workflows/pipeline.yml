@@ -35,25 +35,12 @@ jobs:
       #   env:
       #     FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Success Discord hook
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: success()
+        uses: Ilshidur/action-discord@0.3.2
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          # severity: info
-          # details: Deployment successful!
-      # - name: Failure Discord hook
-      #   if: ${{ failure() }}
-      #   uses: rjstone/discord-webhook-notify@v1.0.4
-      #   with:
-      #     webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      #     severity: error
-      #     details: Deployment failed!
-      # - name: Cancelled Discord hook
-      #   if: ${{ cancelled() }}
-      #   uses: rjstone/discord-webhook-notify@v1.0.4
-      #   with:
-      #     webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      #     severity: warn
-      #     details: Deployment cancelled!
+          args: Deployment successful!
 
   tag_release:
     needs: [simple_deployment_pipeline]
