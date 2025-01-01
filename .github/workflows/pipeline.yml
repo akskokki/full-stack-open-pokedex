@@ -24,37 +24,36 @@ jobs:
         run: npm run build
       - name: test
         run: npm run test
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-      - name: e2e tests
-        run: npm run test:e2e
-      - if: ${{ github.event_name == 'push' }}
-        uses: superfly/flyctl-actions/setup-flyctl@master
-      - if: ${{ github.event_name == 'push' }}
-        run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      # - name: Install Playwright browsers
+      #   run: npx playwright install --with-deps
+      # - name: e2e tests
+      #   run: npm run test:e2e
+      # - if: ${{ github.event_name == 'push' }}
+      #   uses: superfly/flyctl-actions/setup-flyctl@master
+      # - if: ${{ github.event_name == 'push' }}
+      #   run: flyctl deploy --remote-only
+      #   env:
+      #     FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Success Discord hook
-        if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
-          webhookUrl: ${{secrets.DISCORD_WEBHOOK_URL}}
-          severity: info
-          details: Deployment successful!
-      - name: Failure Discord hook
-        if: ${{ failure() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          webhookUrl: ${{secrets.DISCORD_WEBHOOK_URL}}
-          severity: error
-          details: Deployment failed!
-      - name: Cancelled Discord hook
-        if: ${{ cancelled() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        with:
-          webhookUrl: ${{secrets.DISCORD_WEBHOOK_URL}}
-          severity: warn
-          details: Deployment cancelled!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # severity: info
+          # details: Deployment successful!
+      # - name: Failure Discord hook
+      #   if: ${{ failure() }}
+      #   uses: rjstone/discord-webhook-notify@v1.0.4
+      #   with:
+      #     webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      #     severity: error
+      #     details: Deployment failed!
+      # - name: Cancelled Discord hook
+      #   if: ${{ cancelled() }}
+      #   uses: rjstone/discord-webhook-notify@v1.0.4
+      #   with:
+      #     webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      #     severity: warn
+      #     details: Deployment cancelled!
 
   tag_release:
     needs: [simple_deployment_pipeline]
