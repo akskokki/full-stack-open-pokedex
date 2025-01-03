@@ -4,6 +4,8 @@ https://github.com/akskokki/fullstack-cicd-bloglist
 
 # Full Stack open CI/CD
 
+The app is runnig at https://full-stack-open-pokedex-dry-voice-1357.fly.dev/
+
 This repository is used for the CI/CD module of the Full stack open course
 
 Fork the repository to complete course exercises
